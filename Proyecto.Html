@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es" class=""> <!-- La clase 'dark' se añadirá aquí con JS -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DavaShield - Ciberseguridad Estratégica para PYMES</title>
+    
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Carga de Lucide Icons (para los iconos) -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/umd/lucide-react.js"></script>
+    
+    <!-- Configuración de Tailwind para usar la fuente "Inter" -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Habilita el modo oscuro basado en una clase en el <html>
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Color verde "hacker" personalizado
+                        'hacker-green': {
+                            400: '#4ade80', // green-400
+                            500: '#22c55e', // green-500
+                            600: '#16a34a', // green-600
+                            700: '#15803d', // green-700
+                            800: '#166534', // green-800
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    
+    <!-- Estilos personalizados -->
+    <style>
+        /* Estilo para la fuente Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Estilos para el efecto de tecleo */
+        #typed-text-container {
+            min-height: 1.2em; 
+        }
+        
+        #typed-cursor {
+            display: inline-block;
+            width: 0.1em;
+            height: 1.1em;
+            background-color: #3b82f6; /* Color azul (modo claro) */
+            animation: blink 0.7s infinite;
+            margin-left: 0.15em;
+            vertical-align: middle;
+        }
+        
+        /* CAMBIO: Cursor verde en modo oscuro */
+        .dark #typed-cursor {
+            background-color: #4ade80; /* Verde "hacker" */
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        /* Contenedor de iconos para React (necesario para Lucide) */
+        .icon-container {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-950 text-slate-800 dark:text-gray-300 selection:bg-green-500 selection:text-white transition-colors duration-300 antialiased">
+
+    <!-- ===== SECCIÓN DE NAVEGACIÓN ===== -->
+    <header class="sticky top-0 z-50 bg-white/70 dark:bg-gray-950/70 backdrop-blur-lg">
+        <nav class="container mx-auto max-w-6xl px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold">
+                Dava<span class="text-blue-600 dark:text-hacker-green-400">Shield</span>
+            </a>
+            
+            <!-- Links (Ocultos en móvil, visibles en escritorio) -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#servicios" class="text-sm font-medium text-slate-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-hacker-green-400 transition-colors">Servicios</a>
+                <a href="#planes" class="text-sm font-medium text-slate-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-hacker-green-400 transition-colors">Planes</a>
+                <a href="#por-que-nosotros" class="text-sm font-medium text-slate-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-hacker-green-400 transition-colors">Por Qué Nosotros</a>
+                <a href="#contacto" class="text-sm font-medium text-slate-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-hacker-green-400 transition-colors">Contacto</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <!-- Botón de Contacto (visible en escritorio) -->
+                <a href="#contacto" class="hidden sm:inline-block bg-blue-600 dark:bg-hacker-green-600 text-white px-4 py-2 text-sm font-semibold rounded-lg shadow-md hover:bg-blue-700 dark:hover:bg-hacker-green-700 transition-all duration-200">
+                    Solicitar Auditoría
+                </a>
+                
+                <!-- Botón de Modo Oscuro -->
+                <button id="theme-toggle" class="p-2 rounded-full text-slate-700 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-gray-800 transition-colors">
+                    <span id="icon-sun" class="w-5 h-5 hidden"></span>
+                    <span id="icon-moon" class="w-5 h-5 hidden"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== SECCIÓN PRINCIPAL (HERO) ===== -->
+    <main class="container mx-auto max-w-6xl px-4">
+        <section id="hero" class="min-h-[70vh] flex flex-col justify-center items-center text-center py-20">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
+                Protegemos tu PYME contra
+                <br>
+                <!-- Contenedor del efecto de tecleo -->
+                <span id="typed-text-container" class="text-blue-600 dark:text-hacker-green-400 relative inline-block">
+                    <span id="typed-text"></span>
+                    <span id="typed-cursor"></span>
+                </span>
+            </h1>
+            
+            <p class="mt-6 text-lg md:text-xl text-slate-600 dark:text-gray-400 max-w-2xl">
+                En Venezuela, el costo de un ciberataque es la inactividad. DavaShield es tu socio local en ciberseguridad, enfocado en blindar tu facturación, datos y reputación.
+            </p>
+            
+            <div class="mt-10 flex flex-col sm:flex-row gap-4">
+                <a href="#contacto" class="bg-blue-600 dark:bg-hacker-green-600 text-white px-8 py-3 text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-700 dark:hover:bg-hacker-green-700 transform hover:-translate-y-0.5 transition-all duration-200">
+                    Solicitar Auditoría Gratuita
+                </a>
+                <a href="#servicios" class="bg-slate-100 dark:bg-gray-800 text-slate-800 dark:text-gray-200 px-8 py-3 text-lg font-semibold rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 transition-all duration-200">
+                    Ver Servicios
+                </a>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN DE SERVICIOS ===== -->
+        <section id="servicios" class="py-24">
+            <div class="text-center mb-12">
+                <span class="text-blue-600 dark:text-hacker-green-400 font-semibold uppercase tracking-wider">Nuestros Servicios</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2">Un Enfoque de 360°</h2>
+                <p class="text-lg text-slate-600 dark:text-gray-400 max-w-xl mx-auto mt-4">
+                    No solo reaccionamos. Preparamos, protegemos y capacitamos.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tarjeta de Servicio 1 -->
+                <div class="bg-slate-50 dark:bg-gray-900 p-8 rounded-xl shadow-lg border border-transparent dark:border-hacker-green-800/50 hover:shadow-xl transition-shadow duration-300">
+                    <span id="icon-shield-check" class="text-blue-600 dark:text-hacker-green-400"></span>
+                    <h3 class="text-2xl font-bold mt-4 mb-2">Auditoría y Blindaje</h3>
+                    <p class="text-slate-600 dark:text-gray-400">
+                        Analizamos tu red, puntos de venta y servidores. Identificamos vulnerabilidades antes que los atacantes y las cerramos.
+                    </p>
+                </div>
+                
+                <!-- Tarjeta de Servicio 2 -->
+                <div class="bg-slate-50 dark:bg-gray-900 p-8 rounded-xl shadow-lg border border-transparent dark:border-hacker-green-800/50 hover:shadow-xl transition-shadow duration-300">
+                    <span id="icon-siren" class="text-blue-600 dark:text-hacker-green-400"></span>
+                    <h3 class="text-2xl font-bold mt-4 mb-2">Respuesta a Incidentes</h3>
+                    <p class="text-slate-600 dark:text-gray-400">
+                        ¿Fuiste víctima de Ransomware? Aislamos la amenaza, recuperamos tus datos desde respaldos seguros y ponemos tu negocio a operar en tiempo récord.
+                    </pos>
+                </div>
+                
+                <!-- Tarjeta de Servicio 3 -->
+                <div class="bg-slate-50 dark:bg-gray-900 p-8 rounded-xl shadow-lg border border-transparent dark:border-hacker-green-800/50 hover:shadow-xl transition-shadow duration-300">
+                    <span id="icon-users" class="text-blue-600 dark:text-hacker-green-400"></span>
+                    <h3 class="text-2xl font-bold mt-4 mb-2">Capacitación de Personal</h3>
+                    <p class="text-slate-600 dark:text-gray-400">
+                        Tu equipo es la primera línea de defensa. Les enseñamos a detectar Phishing y correos maliciosos de forma práctica y sencilla.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN DE PLANES CON PRECIOS REALISTAS ===== -->
+        <section id="planes" class="py-24">
+            <div class="text-center mb-16">
+                <span class="text-blue-600 dark:text-hacker-green-400 font-semibold uppercase tracking-wider">Planes y Precios</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2">Protección a tu Medida</h2>
+                <p class="text-lg text-slate-600 dark:text-gray-400 max-w-xl mx-auto mt-4">
+                    Soluciones claras y sin sorpresas. Precios mensuales en USD para la economía real.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                
+                <!-- Plan 1: Básico -->
+                <div class="bg-slate-50 dark:bg-gray-900 p-8 rounded-2xl shadow-lg border border-transparent dark:border-gray-800 h-full">
+                    <h3 class="text-2xl font-bold text-center">Plan Esencial</h3>
+                    <p class="text-center text-slate-500 dark:text-gray-400 mt-2">Ideal para oficinas y pequeños comercios.</p>
+                    <!-- PRECIO ACTUALIZADO -->
+                    <p class="text-4xl font-extrabold text-center my-6">
+                        $49<span class="text-lg font-semibold text-slate-500 dark:text-gray-400">/mes</span>
+                    </p>
+                    
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-blue-600 dark:text-hacker-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-slate-600 dark:text-gray-300">Gestión de Antivirus (Endpoint)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-blue-600 dark:text-hacker-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-slate-600 dark:text-gray-300">Configuración de Firewall Básico</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-blue-600 dark:text-hacker-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-slate-600 dark:text-gray-300">Soporte Remoto (Horario de oficina)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-blue-600 dark:text-hacker-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-slate-600 dark:text-gray-300">Revisión de Seguridad Mensual</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#contacto" class="mt-8 block w-full text-center bg-slate-200 dark:bg-gray-800 text-slate-800 dark:text-gray-200 px-6 py-3 text-lg font-semibold rounded-lg hover:bg-slate-300 dark:hover:bg-gray-700 transition-all duration-200">
+                        Solicitar Cotización
+                    </a>
+                </div>
+                
+                <!-- Plan 2: PYME (Recomendado) -->
+                <div class="bg-slate-50 dark:bg-gray-900 p-8 rounded-2xl shadow-2xl border-2 border-blue-600 dark:border-hacker-green-500 h-full relative transform lg:scale-105">
+                    <!-- Distintivo -->
+                    <div class="absolute top-0 right-4 -mt-3">
+                        <span class="bg-blue-600 dark:bg-hacker-green-500 text-white dark:text-gray-900 font-bold text-xs uppercase px-3 py-1 rounded-full">Recomendado</span>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-center">Plan PYME</h3>
+                    <p class="text-center text-slate-500 dark:text-gray-400 mt-2">Para negocios en crecimiento y clínicas.</p>
+                    <!-- PRECIO ACTUALIZADO -->
+                    <p class="text-4xl font-extrabold text-center my-6">
+                        $129<span class="text-lg font-semibold text-slate-500 dark:text-gray-400">/mes</span>
+                    </p>
+                    
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-blue-600 dark:text-hacker-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-slate-600 dark:text-gray-300">Todo en Plan Esencial</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-blue-600 dark:text-hacker-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-slate-600 dark:text-gray-300 font-bold">Gestión de Backups (Nube y Local)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-blue-600 dark:text-hacker-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-slate-600 dark:text-gray-300">Monitoreo de Red Proactivo</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-blue-600 dark:text-hacker-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-slate-600 dark:text-gray-300">Soporte en Sitio (1 visita/mes)</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#contacto" class="mt-8 block w-full text-center bg-blue-600 dark:bg-hacker-green-600 text-white px-6 py-3 text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-700 dark:hover:bg-hacker-green-700 transition-all duration-200">
+                        Solicitar Cotización
+                    </a>
+                </div>
+                
+                <!-- Plan 3: Premium -->
+                <div class="bg-slate-50 dark:bg-gray-900 p-8 rounded-2xl shadow-lg border border-transparent dark:border-gray-800 h-full">
+                    <h3 class="text-2xl font-bold text-center">Plan Premium</h3>
+                    <p class="text-center text-slate-500 dark:text-gray-400 mt-2">Para distribuidoras y datos críticos.</p>
+                    <!-- PRECIO ACTUALIZADO -->
+                    <p class="text-4xl font-extrabold text-center my-6">
+                        Desde $299<span class="text-lg font-semibold text-slate-500 dark:text-gray-400">/mes</span>
+                    </p>
+                    
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-blue-600 dark:text-hacker-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-slate-600 dark:text-gray-300">Todo en Plan PYME</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-blue-600 dark:text-hacker-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-slate-600 dark:text-gray-300 font-bold">Respuesta a Incidentes 24/7</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-blue-600 dark:text-hacker-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-slate-600 dark:text-gray-300 font-bold">Capacitación de Personal</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-blue-600 dark:text-hacker-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-slate-600 dark:text-gray-300">Auditorías de Seguridad Continuas</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#contacto" class="mt-8 block w-full text-center bg-slate-200 dark:bg-gray-800 text-slate-800 dark:text-gray-200 px-6 py-3 text-lg font-semibold rounded-lg hover:bg-slate-300 dark:hover:bg-gray-700 transition-all duration-200">
+                        Solicitar Cotización
+                    </a>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN POR QUÉ NOSOTROS ===== -->
+        <section id="por-que-nosotros" class="py-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <!-- Imagen o Gráfico -->
+                <div class="flex justify-center">
+                    <div class="relative w-full max-w-md p-8 bg-slate-100 dark:bg-gray-900 rounded-2xl shadow-xl transform rotate-3 transition-transform duration-300 hover:rotate-0">
+                        <img 
+                            src="https://placehold.co/500x300/16a34a/ffffff?text=Tu+Socio+Local&font=inter" 
+                            alt="Gráfico de ciberseguridad" 
+                            class="rounded-lg shadow-lg transform -rotate-3 transition-transform duration-300 hover:rotate-0"
+                            onerror="this.src='https://placehold.co/500x300/16a34a/ffffff?text=Imagen+No+Disponible&font=inter'"
+                        >
+                    </div>
+                </div>
+                
+                <!-- Texto -->
+                <div>
+                    <span class="text-blue-600 dark:text-hacker-green-400 font-semibold uppercase tracking-wider">La Diferencia DavaShield</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-2">Especialistas, No Generalistas</h2>
+                    <p class="text-lg text-slate-600 dark:text-gray-400 mt-4 mb-6">
+                        No somos una gran corporación de Caracas. Somos tu equipo de respuesta local. Entendemos los retos únicos de las PYMES en Venezuela.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span id="icon-map-pin" class="text-blue-600 dark:text-hacker-green-400 mt-1 flex-shrink-0"></span>
+                            <div class="ml-3">
+                                <h4 class="text-lg font-semibold">Respuesta Local Inmediata</h4>
+                                <p class="text-slate-600 dark:text-gray-400">Estamos en Falcón. Si hay una emergencia, podemos estar en tu oficina, no solo en una llamada.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span id="icon-brain-circuit" class="text-blue-600 dark:text-hacker-green-400 mt-1 flex-shrink-0"></span>
+                            <div class="ml-3">
+                                <h4 class="text-lg font-semibold">Enfoque en Sistemas Administrativos</h4>
+                                <p class="text-slate-600 dark:text-gray-400">Conocemos Valery, Profit Plus y otros sistemas. Sabemos cómo proteger los datos que *realmente* importan para tu operación.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span id="icon-trending-up" class="text-blue-600 dark:text-hacker-green-400 mt-1 flex-shrink-0"></span>
+                            <div class="ml-3">
+                                <h4 class="text-lg font-semibold">Soluciones Escalables</h4>
+                                <p class="text-slate-600 dark:text-gray-400">Planes de seguridad que crecen contigo. Desde un comercio pequeño hasta una distribuidora mediana.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- ===== SECCIÓN DE CONTACTO (CTA) ===== -->
+        <section id="contacto" class="py-24 bg-slate-50 dark:bg-gray-900 rounded-2xl my-20">
+            <div class="text-center max-w-2xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold">No Esperes a Ser la Próxima Víctima</h2>
+                <p class="text-lg text-slate-600 dark:text-gray-400 mt-4 mb-8">
+                    El mejor momento para asegurar tu empresa fue ayer. El segundo mejor momento es ahora. Una auditoría gratuita puede revelar riesgos críticos que no conocías.
+                </p>
+                
+                <!-- Formulario de Contacto Sencillo -->
+                <form action="#" method="POST" class="space-y-4 text-left">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="name" class="block text-sm font-semibold text-slate-700 dark:text-gray-300">Nombre</label>
+                            <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-2 bg-white dark:bg-gray-950 border border-slate-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-hacker-green-500 dark:focus:border-hacker-green-500">
+                        </div>
+                        <div>
+                            <label for="company" class="block text-sm font-semibold text-slate-700 dark:text-gray-300">Nombre de la Empresa</label>
+                            <input type="text" id="company" name="company" class="mt-1 block w-full px-4 py-2 bg-white dark:bg-gray-950 border border-slate-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-hacker-green-500 dark:focus:border-hacker-green-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-semibold text-slate-700 dark:text-gray-300">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-2 bg-white dark:bg-gray-950 border border-slate-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-hacker-green-500 dark:focus:border-hacker-green-500">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-semibold text-slate-700 dark:text-gray-300">¿Cómo podemos ayudarte?</label>
+                        <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-4 py-2 bg-white dark:bg-gray-950 border border-slate-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-hacker-green-500 dark:focus:border-hacker-green-500" placeholder="Estoy interesado en el Plan PYME ($129/mes)..."></textarea>
+                    </div>
+                    <div class="text-center pt-4">
+                        <button type="submit" class="w-full sm:w-auto bg-blue-600 dark:bg-hacker-green-600 text-white px-10 py-3 text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-700 dark:hover:bg-hacker-green-700 transform hover:-translate-y-0.5 transition-all duration-200">
+                            Enviar Solicitud
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="border-t border-slate-200 dark:border-gray-800">
+        <div class="container mx-auto max-w-6xl px-4 py-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 dark:text-gray-500">
+            <p>&copy; 2025 DavaShield. Todos los derechos reservados.</p>
+            <p class="mt-2 md:mt-0">Hecho con <span class="text-red-500">❤️</span> en Falcón, Venezuela.</p>
+        </div>
+    </footer>
+<!-- ===== LÓGICA DE JAVASCRIPT ===== -->
+    <script>
+        // Montar los iconos de Lucide
+        // Esto es necesario porque los estamos cargando desde un CDN
+        const createIcon = (elementId, iconName) => {
+            const container = document.getElementById(elementId);
+            if (container) {
+                const iconElement = React.createElement(lucide[iconName], { size: 24 });
+                ReactDOM.render(iconElement, container);
+            }
+        };
+        
+        const createToggleIcon = (elementId, iconName) => {
+             const container = document.getElementById(elementId);
+            if (container) {
+                const iconElement = React.createElement(lucide[iconName], { size: 20 });
+                ReactDOM.render(iconElement, container);
+            }
+        }
+        
+        // Renderizar iconos
+        createIcon('icon-shield-check', 'ShieldCheck');
+        createIcon('icon-siren', 'Siren');
+        createIcon('icon-users', 'Users');
+        createIcon('icon-map-pin', 'MapPin');
+        createIcon('icon-brain-circuit', 'BrainCircuit');
+        createIcon('icon-trending-up', 'TrendingUp');
+        createToggleIcon('icon-sun', 'Sun');
+        createToggleIcon('icon-moon', 'Moon');
+
+        
+        // --- Lógica del Modo Oscuro ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('icon-sun');
+        const moonIcon = document.getElementById('icon-moon');
+        const docElement = document.documentElement;
+
+        // Función para actualizar el icono
+        function updateIcon(isDarkMode) {
+            if (isDarkMode) {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        }
+
+        // Comprobar el tema guardado al cargar la página
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            docElement.classList.add('dark');
+            updateIcon(true);
+        } else {
+            docElement.classList.remove('dark');
+            updateIcon(false);
+        }
+
+        // Listener para el botón
+        themeToggle.addEventListener('click', () => {
+            const isDarkMode = docElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            updateIcon(isDarkMode);
+        });
+
+
+        // --- Lógica del Efecto de Tecleo ---
+        const typedTextSpan = document.getElementById('typed-text');
+        const words = ['Ransomware.', 'Phishing.', 'Fuga de Datos.', 'Estafas.'];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typeSpeed = 100; // Velocidad de tecleo
+        const deleteSpeed = 50; // Velocidad de borrado
+        const delay = 2000; // Pausa antes de borrar
+
+        function type() {
+            const currentWord = words[wordIndex];
+            
+            if (isDeleting) {
+                // Borrando
+                typedTextSpan.textContent = currentWord.substring(0, charIndex--);
+                if (charIndex < 0) {
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                    setTimeout(type, typeSpeed);
+                } else {
+                    setTimeout(type, deleteSpeed);
+                }
+            } else {
+                // Escribiendo
+                typedTextSpan.textContent = currentWord.substring(0, charIndex++);
+                if (charIndex > currentWord.length) {
+                    isDeleting = true;
+                    setTimeout(type, delay);
+                } else {
+                    setTimeout(type, typeSpeed);
+                }
+            }
+        }
+
+        // Iniciar el efecto cuando la ventana cargue
+        window.addEventListener('load', () => {
+            if (words.length) {
+                setTimeout(type, typeSpeed);
+            }
+        });
+        
+    </script>
+</body>
+</html>
